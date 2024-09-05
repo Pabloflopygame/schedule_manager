@@ -16,21 +16,24 @@ public class Main {
         Subject AC = new Subject(new ArrayList<>(Arrays.asList(AC41, AC42, AC43, AC44, AC45, AC46, AC47)));
         Subject BD = new Subject(new ArrayList<>(Arrays.asList(BD41, BD42, BD43_44, BD45_46, BD47)));
 
-        // Find the best schedule
-        ScheduleResult result = findBestSchedule(math, physics, MN, AC, BD);
+        // Find the best 5 schedules
+        ScheduleResult[] topSchedules = findTopSchedules(math, physics, MN, AC, BD, 5);
 
-        // Output the best schedule and the number of incompatibilities
-        System.out.println("Best schedule found:");
-        for (Group group : result.bestSchedule) {
-            System.out.println(group);
+        // Output the top 5 schedules and their incompatibility scores
+        System.out.println("Top 5 schedules found:");
+        for (int i = 0; i < topSchedules.length; i++) {
+            System.out.println("Schedule " + (i + 1) + " (Incompatibility: " + topSchedules[i].incompatibilityScore + "):");
+            for (Group group : topSchedules[i].bestSchedule) {
+                System.out.println(group);
+            }
+            System.out.println();
         }
-        System.out.println("Total incompatibility score: " + result.incompatibilityScore);
     }
 
-    // Method to find the best schedule (minimum incompatibility)
-    public static ScheduleResult findBestSchedule(Subject math, Subject physics, Subject MN, Subject AC, Subject BD) {
-        Group[] bestSchedule = new Group[5];
-        int minIncompatibility = Integer.MAX_VALUE;
+    // Method to find the top 'n' best schedules (minimum incompatibility)
+    public static ScheduleResult[] findTopSchedules(Subject math, Subject physics, Subject MN, Subject AC, Subject BD, int topN) {
+        // Priority Queue to store the top N best schedules, sorted by incompatibility (descending)
+        PriorityQueue<ScheduleResult> topSchedules = new PriorityQueue<>(topN, Comparator.comparingInt(result -> -result.incompatibilityScore));
 
         // Iterate through all group combinations
         for (Group mathGroup : math.subject) {
@@ -52,14 +55,17 @@ public class Main {
                             totalIncompatibility += Group.compatible(MNGroup, BDGroup);
                             totalIncompatibility += Group.compatible(ACGroup, BDGroup);
 
-                            // Check if this combination has the least incompatibility
-                            if (totalIncompatibility < minIncompatibility) {
-                                minIncompatibility = totalIncompatibility;
-                                bestSchedule[0] = mathGroup;
-                                bestSchedule[1] = physicsGroup;
-                                bestSchedule[2] = MNGroup;
-                                bestSchedule[3] = ACGroup;
-                                bestSchedule[4] = BDGroup;
+                            // Create a new schedule result
+                            Group[] currentSchedule = new Group[] { mathGroup, physicsGroup, MNGroup, ACGroup, BDGroup };
+                            ScheduleResult result = new ScheduleResult(currentSchedule, totalIncompatibility);
+
+                            // If the priority queue has fewer than topN schedules, add the current one
+                            if (topSchedules.size() < topN) {
+                                topSchedules.add(result);
+                            } else if (result.incompatibilityScore < topSchedules.peek().incompatibilityScore) {
+                                // If the current schedule is better than the worst in the queue, replace the worst
+                                topSchedules.poll();  // Remove the worst schedule
+                                topSchedules.add(result);  // Add the new better schedule
                             }
                         }
                     }
@@ -67,8 +73,10 @@ public class Main {
             }
         }
 
-        // Return the best schedule and the minimum incompatibility score
-        return new ScheduleResult(bestSchedule, minIncompatibility);
+        // Convert the priority queue to an array and return the top schedules
+        ScheduleResult[] topScheduleArray = topSchedules.toArray(new ScheduleResult[0]);
+        Arrays.sort(topScheduleArray, Comparator.comparingInt(result -> result.incompatibilityScore)); // Sort in ascending order
+        return topScheduleArray;
     }
 
     // we set up data here to make main algorithm clean
