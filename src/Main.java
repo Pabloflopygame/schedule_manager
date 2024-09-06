@@ -14,7 +14,7 @@ public class Main {
         Subject physics = new Subject(new ArrayList<>(Arrays.asList(physics41_42, physics43_44, physics45_46, physics47_48, physics49_50, physics51_52)));
         Subject MN = new Subject(new ArrayList<>(Arrays.asList(MN41, MN42, MN43_44, MN45, MN46, MN47)));
         Subject AC = new Subject(new ArrayList<>(Arrays.asList(AC41, AC42, AC43, AC44, AC45, AC46, AC47)));
-        Subject BD = new Subject(new ArrayList<>(Arrays.asList(BD41, BD42, BD43_44, BD45_46, BD47)));
+        Subject BD = new Subject(new ArrayList<>(Arrays.asList(BD41, BD42, BD43_44, BD45, BD46, BD47)));
 
         // Find the best 5 schedules
         ScheduleResult[] topSchedules = findTopSchedules(math, physics, MN, AC, BD, 5);
@@ -221,6 +221,12 @@ public class Main {
             ),
             new Class(
                     LocalTime.of(15, 0),
+                    LocalTime.of(16, 0),
+                    DayOfWeek.FRIDAY,
+                    ClassType.THEORY
+            ),
+            new Class(
+                    LocalTime.of(15, 0),
                     LocalTime.of(17, 0),
                     DayOfWeek.THURSDAY,
                     ClassType.LAB
@@ -238,6 +244,12 @@ public class Main {
                     LocalTime.of(18, 0),
                     LocalTime.of(19, 0),
                     DayOfWeek.WEDNESDAY,
+                    ClassType.THEORY
+            ),
+            new Class(
+                    LocalTime.of(15, 0),
+                    LocalTime.of(16, 0),
+                    DayOfWeek.FRIDAY,
                     ClassType.THEORY
             ),
             new Class(
@@ -263,6 +275,12 @@ public class Main {
             ),
             new Class(
                     LocalTime.of(15, 0),
+                    LocalTime.of(16, 0),
+                    DayOfWeek.THURSDAY,
+                    ClassType.THEORY
+            ),
+            new Class(
+                    LocalTime.of(15, 0),
                     LocalTime.of(17, 0),
                     DayOfWeek.WEDNESDAY,
                     ClassType.LAB
@@ -280,6 +298,12 @@ public class Main {
                     LocalTime.of(19, 0),
                     LocalTime.of(20, 0),
                     DayOfWeek.TUESDAY,
+                    ClassType.THEORY
+            ),
+            new Class(
+                    LocalTime.of(15, 0),
+                    LocalTime.of(16, 0),
+                    DayOfWeek.THURSDAY,
                     ClassType.THEORY
             ),
             new Class(
@@ -305,6 +329,12 @@ public class Main {
             ),
             new Class(
                     LocalTime.of(15, 0),
+                    LocalTime.of(16, 0),
+                    DayOfWeek.WEDNESDAY,
+                    ClassType.THEORY
+            ),
+            new Class(
+                    LocalTime.of(15, 0),
                     LocalTime.of(17, 0),
                     DayOfWeek.FRIDAY,
                     ClassType.LAB
@@ -325,6 +355,12 @@ public class Main {
                     ClassType.THEORY
             ),
             new Class(
+                    LocalTime.of(15, 0),
+                    LocalTime.of(16, 0),
+                    DayOfWeek.WEDNESDAY,
+                    ClassType.THEORY
+            ),
+            new Class(
                     LocalTime.of(19, 0),
                     LocalTime.of(21, 0),
                     DayOfWeek.FRIDAY,
@@ -334,8 +370,8 @@ public class Main {
 
     static Group MN41 = new Group("MN41",
             new Class(
-                    LocalTime.of(19, 0),
                     LocalTime.of(20, 0),
+                    LocalTime.of(21, 0),
                     DayOfWeek.TUESDAY,
                     ClassType.THEORY
             ),
@@ -355,8 +391,8 @@ public class Main {
 
     static Group MN42 = new Group("MN42",
             new Class(
-                    LocalTime.of(19, 0),
                     LocalTime.of(20, 0),
+                    LocalTime.of(21, 0),
                     DayOfWeek.TUESDAY,
                     ClassType.THEORY
             ),
@@ -376,8 +412,8 @@ public class Main {
 
     static Group MN43_44 = new Group("MN43_44",
             new Class(
-                    LocalTime.of(19, 0),
                     LocalTime.of(20, 0),
+                    LocalTime.of(21, 0),
                     DayOfWeek.TUESDAY,
                     ClassType.THEORY
             ),
@@ -451,8 +487,8 @@ public class Main {
                     ClassType.THEORY
             ),
             new Class(
-                    LocalTime.of(15, 0),
                     LocalTime.of(17, 0),
+                    LocalTime.of(19, 0),
                     DayOfWeek.TUESDAY,
                     ClassType.LAB
             )
@@ -650,7 +686,22 @@ public class Main {
             )
     );
 
-    static Group BD45_46 = new Group("BD45_46",
+    static Group BD45 = new Group("BD45",
+            new Class(
+                    LocalTime.of(19, 0),
+                    LocalTime.of(21, 0),
+                    DayOfWeek.THURSDAY,
+                    ClassType.THEORY
+            ),
+            new Class(
+                    LocalTime.of(15, 0),
+                    LocalTime.of(17, 0),
+                    DayOfWeek.TUESDAY,
+                    ClassType.LAB
+            )
+    );
+
+    static Group BD46 = new Group("BD46",
             new Class(
                     LocalTime.of(19, 0),
                     LocalTime.of(21, 0),
